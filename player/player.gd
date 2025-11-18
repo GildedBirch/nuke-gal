@@ -7,6 +7,8 @@ extends CharacterBody3D
 var apply_gravity: bool = true
 var can_move: bool = true
 var mouse_free: bool = false
+var mouse_sens: float = 0.0
+var controller_sens: float = 0.0
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
 @onready var camera_3d: Camera3D = %Camera3D
@@ -16,6 +18,8 @@ var mouse_free: bool = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	GlobalSettings.sensitivity_changed.connect(_on_sensitivity_changed)
+	_on_sensitivity_changed()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -25,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if mouse_free:
 			return
-		camera_pivot.rotation.y -= event.relative.x * GlobalSettings.mouse_sens
+		camera_pivot.rotation.y -= event.relative.x * mouse_sens
 
 
 func _physics_process(delta: float) -> void:
@@ -40,7 +44,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var cam_axis: float = Input.get_axis(&"camera_left", &"camera_right")
-	camera_pivot.rotation.y -= cam_axis * GlobalSettings.controller_sens
+	camera_pivot.rotation.y -= cam_axis * controller_sens
 	
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).rotated(Vector3.UP, camera_pivot.rotation.y)
@@ -62,3 +66,8 @@ func is_moving() -> bool:
 	if Input.get_vector(&"left", &"right", &"forward", &"backward") != Vector2.ZERO:
 		return true
 	return false
+
+
+func _on_sensitivity_changed() -> void:
+	mouse_sens = GlobalSettings.get_mouse_sens()
+	controller_sens = GlobalSettings.get_controller_sens()
