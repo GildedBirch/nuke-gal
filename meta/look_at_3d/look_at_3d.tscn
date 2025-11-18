@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://6l1o68jonqra"]
+
+[ext_resource type="Script" uid="uid://bt0n04etd6dex" path="res://meta/look_at_3d/look_at_3d.gd" id="1_5h2jh"]
+
+[node name="LookAt3D" type="Node3D"]
+script = ExtResource("1_5h2jh")
+
+[node name="SnapLook" type="Node3D" parent="."]
+unique_name_in_owner = true
