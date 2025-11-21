@@ -7,8 +7,8 @@ extends CharacterBody3D
 var apply_gravity: bool = true
 var can_move: bool = true
 var mouse_free: bool = false
-var mouse_sens: float = 0.0
-var controller_sens: float = 0.0
+var _mouse_sens: float = 0.0
+var _controller_sens: float = 0.0
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
 @onready var camera_3d: Camera3D = %Camera3D
@@ -29,11 +29,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if mouse_free:
 			return
-		camera_pivot.rotation.y -= event.relative.x * mouse_sens
+		camera_pivot.rotation.y -= event.relative.x * _mouse_sens
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if apply_gravity:
 		velocity += get_gravity() * 2.0 * delta
 	else:
@@ -44,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var cam_axis: float = Input.get_axis(&"camera_left", &"camera_right")
-	camera_pivot.rotation.y -= cam_axis * controller_sens
+	camera_pivot.rotation.y -= cam_axis * _controller_sens
 	
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).rotated(Vector3.UP, camera_pivot.rotation.y)
@@ -57,7 +56,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	if direction and not is_on_wall():
-		var look_dir := global_position + velocity
+		var look_dir: Vector3 = global_position + velocity
 		look_dir.y = global_position.y
 		look_at_3d.look_toward(look_dir)
 
@@ -69,5 +68,5 @@ func is_moving() -> bool:
 
 
 func _on_sensitivity_changed() -> void:
-	mouse_sens = GlobalSettings.get_mouse_sens()
-	controller_sens = GlobalSettings.get_controller_sens()
+	_mouse_sens = GlobalSettings.get_mouse_sens()
+	_controller_sens = GlobalSettings.get_controller_sens()
