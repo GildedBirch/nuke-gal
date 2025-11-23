@@ -9,6 +9,7 @@ radius = 0.25
 height = 1.0
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_rkbax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -20,6 +21,10 @@ unique_name_in_owner = true
 
 [node name="nuke_gal" parent="MeshPivot" instance=ExtResource("1_oul6g")]
 transform = Transform3D(-0.212, 0, 3.201111e-08, 0, 0.212, 0, -3.201111e-08, 0, -0.212, 0, 0, 0)
+
+[node name="BombMarker" type="Marker3D" parent="MeshPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9666437, -0.12076069)
 
 [node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true

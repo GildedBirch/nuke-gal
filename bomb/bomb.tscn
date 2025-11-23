@@ -14,14 +14,18 @@ roughness = 0.36
 material = SubResource("StandardMaterial3D_en0bh")
 radius = 0.25
 height = 0.5
+radial_segments = 7
+rings = 7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fduqh"]
+resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 shading_mode = 0
 albedo_color = Color(0.9647059, 0.37254903, 0, 0.5254902)
 
 [sub_resource type="SphereMesh" id="SphereMesh_en0bh"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_fduqh")
 radius = 0.25
 height = 0.5
@@ -29,12 +33,14 @@ radial_segments = 9
 rings = 7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3ig0"]
+resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 shading_mode = 0
 albedo_color = Color(1, 0.95450276, 0.9369134, 0.5254902)
 
 [sub_resource type="SphereMesh" id="SphereMesh_1h7gg"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_f3ig0")
 radius = 0.25
 height = 0.5
@@ -42,12 +48,14 @@ radial_segments = 9
 rings = 7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3gsr"]
+resource_local_to_scene = true
 transparency = 1
 shading_mode = 0
 albedo_color = Color(0.9647059, 0, 0, 1)
 disable_receive_shadows = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_27ssy"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_f3gsr")
 radius = 0.25
 height = 0.5
@@ -212,6 +220,42 @@ tracks/12/keys = {
 "update": 0,
 "values": [0.5]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ExplosionOuter:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ExplosionMiddle:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ExplosionInner:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_5f04w"]
 resource_name = "explode"
@@ -371,6 +415,42 @@ tracks/12/keys = {
 "update": 0,
 "values": [0.5, 0.75]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ExplosionOuter:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.1415927, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ExplosionMiddle:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -3.1415927, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ExplosionInner:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mdkb4"]
 _data = {
@@ -380,6 +460,9 @@ _data = {
 
 [node name="Bomb" type="RigidBody3D"]
 collision_layer = 8
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 script = ExtResource("1_fduqh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -393,30 +476,32 @@ mesh = SubResource("SphereMesh_f3ig0")
 [node name="FuseTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 3.0
-autostart = true
+one_shot = true
 
 [node name="ExplosionOuter" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 visible = false
 mesh = SubResource("SphereMesh_en0bh")
 
 [node name="ExplosionMiddle" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 visible = false
 mesh = SubResource("SphereMesh_1h7gg")
 
 [node name="ExplosionInner" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 visible = false
 mesh = SubResource("SphereMesh_27ssy")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+volume_db = -3.0
+max_distance = 20.0
+bus = &"Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_mdkb4")
 }
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-bus = &"Effects"
