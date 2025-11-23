@@ -96,7 +96,7 @@ throw_bomb={
 
 3d_physics/layer_1="Walls"
 3d_physics/layer_2="Player"
-3d_physics/layer_3="Enemy"
+3d_physics/layer_3="BombTarget"
 3d_physics/layer_4="Explosion"
 
 [rendering]

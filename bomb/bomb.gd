@@ -12,7 +12,8 @@ const EXPLOSION_AUDIO: Array[AudioStreamWAV] = [
 	preload("uid://be4hcif6wb1bq"),
 	preload("uid://31a7xstnolso"),
 ]
-var tier: int = 0
+var radius_tier: int = 0
+var damage_tier: int = 0
 @onready var fuse_timer: Timer = %FuseTimer
 @onready var explosion_outer: MeshInstance3D = %ExplosionOuter
 @onready var explosion_middle: MeshInstance3D = %ExplosionMiddle
@@ -31,6 +32,9 @@ func blow_up() -> void:
 	freeze = true
 	hit_area_collision.shape.radius *= _get_radius(Part.OUTER)
 	animate()
+	var areas: Array[Area3D] = hit_area.get_overlapping_areas()
+	for area in areas:
+		area.hit(damage_tier + 1)
 	SignalBus.bomb.exploded.emit()
 	await animation_player.animation_finished
 	queue_free()
@@ -66,7 +70,7 @@ func _get_radius(part: Part) -> float:
 		Part.OUTER:
 			part_modifier = 2.0
 	
-	match tier:
+	match radius_tier:
 		0:
 			tier_modifier = 1.5
 		1:

@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://haumh5maop7u"]
+[gd_scene load_steps=7 format=3 uid="uid://haumh5maop7u"]
 
 [ext_resource type="PackedScene" uid="uid://dffq05wx8r6pc" path="res://assets/nuke_gal/nuke_gal.blend" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://cjjd0i5rb1frw" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="PackedScene" uid="uid://6l1o68jonqra" path="res://meta/look_at_3d/look_at_3d.tscn" id="3_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://ddgu0orsatdl4" path="res://components/bomb_target_component.tscn" id="4_yw30f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
 radius = 0.25
 height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
+radius = 0.25
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -43,3 +47,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 unique_name_in_owner = true
 smooth_target = NodePath("../MeshPivot")
 smoothing = 10.0
+
+[node name="BombTargetComponent" parent="." instance=ExtResource("4_yw30f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BombTargetComponent"]
+shape = SubResource("SphereShape3D_qjkh3")
+debug_color = Color(0.90081596, 0.0001682651, 0.76311773, 0.41960785)

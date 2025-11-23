@@ -20,6 +20,7 @@ var _current_bomb: Bomb
 var _total_bombs: int = 2
 var _current_bombs: int = 0
 var _radius_tier: int = 0
+var _damage_tier: int = 0
 # Refs
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
@@ -72,6 +73,8 @@ func _physics_process(delta: float) -> void:
 	if direction and not is_on_wall():
 		var look_dir: Vector3 = global_position + velocity
 		look_dir.y = global_position.y
+		if look_dir == global_position:
+			return
 		look_at_3d.look_toward(look_dir)
 
 
@@ -100,7 +103,8 @@ func _spawn_bomb() -> void:
 	_current_bombs += 1
 	_current_bomb = BOMB.instantiate()
 	bomb_marker.add_child(_current_bomb)
-	_current_bomb.tier = _radius_tier
+	_current_bomb.radius_tier = _radius_tier
+	_current_bomb.damage_tier = _damage_tier
 	_bomb_state = BombState.HELD
 
 
