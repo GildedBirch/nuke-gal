@@ -14,8 +14,12 @@ var can_move: bool = true
 var mouse_free: bool = false
 var _mouse_sens: float = 0.0
 var _controller_sens: float = 0.0
+# Bomb variables
 var _bomb_state: BombState = BombState.NONE
 var current_bomb: Bomb
+var total_bombs: int = 1
+var current_bombs: int = 0
+# Refs
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
 @onready var camera_3d: Camera3D = %Camera3D
@@ -27,6 +31,7 @@ var current_bomb: Bomb
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GlobalSettings.sensitivity_changed.connect(_on_sensitivity_changed)
+	SignalBus.bomb.exploded.connect(_on_bomb_exploded)
 	_on_sensitivity_changed()
 
 
@@ -89,10 +94,12 @@ func _handle_input(event: InputEvent) -> void:
 func _spawn_bomb() -> void:
 	if not _bomb_state == BombState.NONE:
 		return
+	if current_bombs >= total_bombs:
+		return
+	current_bombs += 1
 	current_bomb = BOMB.instantiate()
 	bomb_marker.add_child(current_bomb)
 	_bomb_state = BombState.HELD
-	
 
 
 func _place_bomb() -> void:
@@ -109,8 +116,13 @@ func _throw_bomb() -> void:
 		return
 	current_bomb.fuse_timer.start()
 	current_bomb.reparent(get_tree().root)
-	current_bomb.apply_impulse(((mesh_pivot.basis * Vector3.FORWARD) + Vector3.UP) * 4)
+	var throw_force: Vector3 = ((mesh_pivot.basis * Vector3.FORWARD) + Vector3.UP) + velocity.normalized()
+	current_bomb.apply_impulse(throw_force * 4)
 	_bomb_state = BombState.NONE
+
+
+func _on_bomb_exploded() -> void:
+	current_bombs = maxi(current_bombs - 1, 0)
 
 
 func _on_sensitivity_changed() -> void:

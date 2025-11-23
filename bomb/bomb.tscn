@@ -1,21 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgsfjbgrlgh3e"]
+[gd_scene load_steps=15 format=3 uid="uid://dgsfjbgrlgh3e"]
 
 [ext_resource type="Script" uid="uid://dnywukwrsvtmx" path="res://bomb/bomb.gd" id="1_fduqh"]
+[ext_resource type="PackedScene" uid="uid://cvhm115n6i306" path="res://assets/bomb/bomb.blend" id="2_en0bh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fduqh"]
+rough = true
+bounce = 0.39
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fduqh"]
 radius = 0.25
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_en0bh"]
-albedo_color = Color(0.011087579, 0.011087578, 0.01108758, 1)
-metallic = 1.0
-roughness = 0.36
-
-[sub_resource type="SphereMesh" id="SphereMesh_f3ig0"]
-material = SubResource("StandardMaterial3D_en0bh")
-radius = 0.25
-height = 0.5
-radial_segments = 7
-rings = 7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fduqh"]
 resource_local_to_scene = true
@@ -187,43 +180,43 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("MeshInstance3D:visible")
+tracks/10/path = NodePath("ExplosionInner:mesh:radius")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.25]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ExplosionInner:mesh:radius")
+tracks/11/path = NodePath("ExplosionInner:mesh:height")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.25]
+"values": [0.5]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ExplosionInner:mesh:height")
+tracks/12/path = NodePath("ExplosionOuter:rotation")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.5]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ExplosionOuter:rotation")
+tracks/13/path = NodePath("ExplosionMiddle:rotation")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -235,7 +228,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("ExplosionMiddle:rotation")
+tracks/14/path = NodePath("ExplosionInner:rotation")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -247,14 +240,14 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("ExplosionInner:rotation")
+tracks/15/path = NodePath("bomb:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_5f04w"]
@@ -382,74 +375,74 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("MeshInstance3D:visible")
+tracks/10/path = NodePath("ExplosionInner:mesh:radius")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"times": PackedFloat32Array(0, 0.66),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.25, 0.375]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ExplosionInner:mesh:radius")
+tracks/11/path = NodePath("ExplosionInner:mesh:height")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.66),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.25, 0.375]
+"values": [0.5, 0.75]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ExplosionInner:mesh:height")
+tracks/12/path = NodePath("ExplosionOuter:rotation")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 0.66),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.5, 0.75]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("ExplosionOuter:rotation")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.5, 0.5),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 3.1415927, 0)]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("ExplosionMiddle:rotation")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ExplosionMiddle:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(2, 2),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -3.1415927, 0)]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("ExplosionInner:rotation")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ExplosionInner:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("bomb:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mdkb4"]
@@ -458,24 +451,28 @@ _data = {
 &"explode": SubResource("Animation_5f04w")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_en0bh"]
+
 [node name="Bomb" type="RigidBody3D"]
 collision_layer = 8
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_fduqh")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.25, 0)
 script = ExtResource("1_fduqh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("SphereShape3D_fduqh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-mesh = SubResource("SphereMesh_f3ig0")
+[node name="bomb" parent="." instance=ExtResource("2_en0bh")]
+transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 0, 0.25, 0)
 
 [node name="FuseTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="ExplosionOuter" type="MeshInstance3D" parent="."]
@@ -505,3 +502,14 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_mdkb4")
 }
+
+[node name="HitArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+collision_layer = 0
+collision_mask = 6
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea"]
+shape = SubResource("SphereShape3D_en0bh")
+debug_color = Color(0.99999994, 0, 0.10916842, 0.41960785)

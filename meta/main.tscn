@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://elstvilcwuwj"]
+[gd_scene load_steps=6 format=3 uid="uid://elstvilcwuwj"]
 
 [ext_resource type="PackedScene" uid="uid://twat1jg8xf11" path="res://_debug/debug_level.tscn" id="1_5m8kc"]
 [ext_resource type="PackedScene" uid="uid://haumh5maop7u" path="res://player/player.tscn" id="2_cba4a"]
-[ext_resource type="PackedScene" uid="uid://dgsfjbgrlgh3e" path="res://bomb/bomb.tscn" id="3_cba4a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5m8kc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,6 +27,3 @@ shadow_enabled = true
 [node name="DebugLevel" parent="." instance=ExtResource("1_5m8kc")]
 
 [node name="Player" parent="." instance=ExtResource("2_cba4a")]
-
-[node name="Bomb" parent="." instance=ExtResource("3_cba4a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
