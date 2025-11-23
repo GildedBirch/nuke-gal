@@ -18,6 +18,7 @@ config/icon="res://assets/icons/icon.svg"
 [autoload]
 
 GlobalSettings="*res://auto_load/global_settings.gd"
+SignalBus="*res://auto_load/signal_bus.gd"
 
 [display]
 
