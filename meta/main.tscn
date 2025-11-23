@@ -1,11 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://elstvilcwuwj"]
+[gd_scene load_steps=7 format=3 uid="uid://elstvilcwuwj"]
 
 [ext_resource type="PackedScene" uid="uid://twat1jg8xf11" path="res://_debug/debug_level.tscn" id="1_5m8kc"]
 [ext_resource type="PackedScene" uid="uid://haumh5maop7u" path="res://player/player.tscn" id="2_cba4a"]
+[ext_resource type="AudioStream" uid="uid://di8u6kxpt8hbi" path="res://assets/music/Three Red Hearts - Pixel War 1.ogg" id="3_cba4a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5m8kc"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_top_color = Color(0.33387092, 0.5957154, 0.8278338, 1)
+sky_horizon_color = Color(0.7242285, 0.8128818, 0.860411, 1)
+ground_bottom_color = Color(0.11714069, 0.18387902, 0.22757363, 1)
+ground_horizon_color = Color(0.7254902, 0.8117647, 0.85882354, 1)
 
 [sub_resource type="Sky" id="Sky_cba4a"]
 sky_material = SubResource("ProceduralSkyMaterial_5m8kc")
@@ -27,3 +30,9 @@ shadow_enabled = true
 [node name="DebugLevel" parent="." instance=ExtResource("1_5m8kc")]
 
 [node name="Player" parent="." instance=ExtResource("2_cba4a")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cba4a")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
