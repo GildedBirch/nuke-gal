@@ -25,6 +25,6 @@ func _process(delta: float) -> void:
 
 
 func look_toward(rot: Vector3) -> void:
-	if rot == Vector3.ZERO:
+	if rot == Vector3.ZERO or rot == global_rotation:
 		return
 	snap_look.look_at(rot)

@@ -16,9 +16,10 @@ var _mouse_sens: float = 0.0
 var _controller_sens: float = 0.0
 # Bomb variables
 var _bomb_state: BombState = BombState.NONE
-var current_bomb: Bomb
-var total_bombs: int = 1
-var current_bombs: int = 0
+var _current_bomb: Bomb
+var _total_bombs: int = 2
+var _current_bombs: int = 0
+var _radius_tier: int = 0
 # Refs
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
@@ -36,7 +37,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey or event is InputEventMouseButton:
+	if not event is InputEventMouseMotion:
 		_handle_input(event)
 	
 	if event is InputEventMouseMotion:
@@ -94,35 +95,38 @@ func _handle_input(event: InputEvent) -> void:
 func _spawn_bomb() -> void:
 	if not _bomb_state == BombState.NONE:
 		return
-	if current_bombs >= total_bombs:
+	if _current_bombs >= _total_bombs:
 		return
-	current_bombs += 1
-	current_bomb = BOMB.instantiate()
-	bomb_marker.add_child(current_bomb)
+	_current_bombs += 1
+	_current_bomb = BOMB.instantiate()
+	bomb_marker.add_child(_current_bomb)
+	_current_bomb.tier = _radius_tier
 	_bomb_state = BombState.HELD
 
 
 func _place_bomb() -> void:
 	if not _bomb_state == BombState.HELD:
 		return
-	current_bomb.fuse_timer.start()
-	current_bomb.reparent(get_tree().root)
-	current_bomb.global_position = global_position + (mesh_pivot.basis * Vector3.FORWARD)
+	_current_bomb.fuse_timer.start()
+	_current_bomb.reparent(get_tree().root)
+	_current_bomb.global_position = global_position + (mesh_pivot.basis * Vector3.FORWARD)
 	_bomb_state = BombState.NONE
+	_current_bomb = null
 
 
 func _throw_bomb() -> void:
 	if not _bomb_state == BombState.HELD:
 		return
-	current_bomb.fuse_timer.start()
-	current_bomb.reparent(get_tree().root)
+	_current_bomb.fuse_timer.start()
+	_current_bomb.reparent(get_tree().root)
 	var throw_force: Vector3 = ((mesh_pivot.basis * Vector3.FORWARD) + Vector3.UP) + velocity.normalized()
-	current_bomb.apply_impulse(throw_force * 4)
+	_current_bomb.apply_impulse(throw_force * 4)
 	_bomb_state = BombState.NONE
+	_current_bomb = null
 
 
 func _on_bomb_exploded() -> void:
-	current_bombs = maxi(current_bombs - 1, 0)
+	_current_bombs = maxi(_current_bombs - 1, 0)
 
 
 func _on_sensitivity_changed() -> void:
