@@ -1,5 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://cp1dci2q0whfw"]
+[gd_scene load_steps=5 format=3 uid="uid://cp1dci2q0whfw"]
 
 [ext_resource type="PackedScene" uid="uid://pv3hhmfh24" path="res://assets/map/map01.blend" id="1_5gnpl"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gnpl"]
+transparency = 2
+alpha_scissor_threshold = 1.0
+alpha_antialiasing_mode = 0
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(1, 1, 1, 0)
+disable_receive_shadows = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5gnpl"]
+friction = 0.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5gnpl"]
+
 [node name="Map01" instance=ExtResource("1_5gnpl")]
+
+[node name="Barrier" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_5gnpl")
+
+[node name="StaticBody3D" parent="Barrier" index="0"]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_5gnpl")
+
+[node name="CollisionShape3D" parent="Barrier/StaticBody3D" index="0"]
+debug_color = Color(0.8348946, 0.5276098, 0, 0.41960785)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." index="2"]
+navigation_mesh = SubResource("NavigationMesh_5gnpl")
