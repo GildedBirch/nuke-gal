@@ -19,7 +19,7 @@ var _bomb_state: BombState = BombState.NONE
 var _current_bomb: Bomb
 var _total_bombs: int = 2
 var _current_bombs: int = 0
-var _radius_tier: int = 0
+var _radius_tier: int = 2
 var _damage_tier: int = 0
 # Refs
 @onready var mesh_pivot: Node3D = %MeshPivot

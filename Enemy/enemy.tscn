@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://byqowdphhhss4"]
+
+[ext_resource type="Script" uid="uid://bslcg1shmwo4f" path="res://Enemy/enemy.gd" id="1_2pb1h"]
+[ext_resource type="PackedScene" uid="uid://ddgu0orsatdl4" path="res://components/bomb_target_component.tscn" id="2_px1sc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xjnqo"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pb1h"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_px1sc"]
+material = SubResource("StandardMaterial3D_2pb1h")
+radius = 0.25
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_am0pq"]
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_2pb1h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_xjnqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_px1sc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+avoidance_enabled = true
+height = 1.5
+debug_enabled = true
+
+[node name="BombTargetComponent" parent="." instance=ExtResource("2_px1sc")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BombTargetComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15324652, 0)
+shape = SubResource("SphereShape3D_am0pq")
