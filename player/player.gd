@@ -17,10 +17,11 @@ var _controller_sens: float = 0.0
 # Bomb variables
 var _bomb_state: BombState = BombState.NONE
 var _current_bomb: Bomb
-var _total_bombs: int = 2
+var _total_bombs: int = 1
 var _current_bombs: int = 0
-var _radius_tier: int = 2
+var _radius_tier: int = 0
 var _damage_tier: int = 0
+var _machines_destroyed: int = 0
 # Refs
 @onready var mesh_pivot: Node3D = %MeshPivot
 @onready var camera_arm: SpringArm3D = %CameraArm
@@ -34,6 +35,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GlobalSettings.sensitivity_changed.connect(_on_sensitivity_changed)
 	SignalBus.bomb.exploded.connect(_on_bomb_exploded)
+	SignalBus.machine.destroyed.connect(_on_machine_destroyed)
 	_on_sensitivity_changed()
 
 
@@ -131,6 +133,15 @@ func _throw_bomb() -> void:
 
 func _on_bomb_exploded() -> void:
 	_current_bombs = maxi(_current_bombs - 1, 0)
+
+
+func _on_machine_destroyed() -> void:
+	_machines_destroyed += 1
+	if _machines_destroyed % 2 == 0:
+		if _radius_tier < 2:
+			_radius_tier += 1
+	else:
+		_total_bombs += 1
 
 
 func _on_sensitivity_changed() -> void:

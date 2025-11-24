@@ -18,13 +18,13 @@ func _ready() -> void:
 	update_target_location(stop_1.global_position)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not is_navigating:
 		return
 	var current_location: Vector3 = global_position
 	var next_location: Vector3 = nav_agent.get_next_path_position()
 	var new_velocity: Vector3 = (next_location - current_location).normalized() * speed
-	new_velocity.y = 0
+	nav_agent.velocity += get_gravity() * 2.0 * delta
 	nav_agent.velocity = new_velocity
 
 

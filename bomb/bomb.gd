@@ -26,15 +26,14 @@ var damage_tier: int = 0
 
 func _ready() -> void:
 	fuse_timer.timeout.connect(_on_fuse_timeout)
+	hit_area.area_entered.connect(_on_area_entered)
 
 
 func blow_up() -> void:
 	freeze = true
+	hit_area.monitoring = true
 	hit_area_collision.shape.radius *= _get_radius(Part.OUTER)
 	animate()
-	var areas: Array[Area3D] = hit_area.get_overlapping_areas()
-	for area in areas:
-		area.hit(damage_tier + 1)
 	SignalBus.bomb.exploded.emit()
 	await animation_player.animation_finished
 	queue_free()
@@ -82,3 +81,7 @@ func _get_radius(part: Part) -> float:
 
 func _on_fuse_timeout() -> void:
 	blow_up()
+
+
+func _on_area_entered(area: Area3D) -> void:
+	area.hit(damage_tier + 1)

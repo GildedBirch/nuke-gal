@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://djjc462el1i0m"]
+
+[ext_resource type="PackedScene" uid="uid://c6v5rxlfpotmg" path="res://assets/machine/machine.blend" id="1_om455"]
+[ext_resource type="Script" uid="uid://v1o0qf4qnpmg" path="res://machine/machine.gd" id="2_su0so"]
+[ext_resource type="PackedScene" uid="uid://ddgu0orsatdl4" path="res://components/bomb_target_component.tscn" id="3_u1esh"]
+[ext_resource type="AudioStream" uid="uid://lx28yipa1v67" path="res://assets/sound_effects/Crash.wav" id="4_u1esh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fq5a4"]
+size = Vector3(2.0075684, 1.994873, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_su0so"]
+size = Vector3(1.9997559, 1.9985352, 2.2453613)
+
+[node name="machine" instance=ExtResource("1_om455")]
+script = ExtResource("2_su0so")
+
+[node name="Machine" parent="." index="0"]
+unique_name_in_owner = true
+
+[node name="Machine_Broken" parent="." index="1"]
+unique_name_in_owner = true
+visible = false
+
+[node name="BombTargetComponent" parent="." index="2" instance=ExtResource("3_u1esh")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BombTargetComponent" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9979248, 0)
+shape = SubResource("BoxShape3D_fq5a4")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9963379, -0.62268066)
+shape = SubResource("BoxShape3D_su0so")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="4"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0668633, 0)
+stream = ExtResource("4_u1esh")
+volume_db = -3.0
+max_distance = 20.0
+bus = &"Effects"
