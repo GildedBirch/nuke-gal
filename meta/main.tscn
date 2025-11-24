@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://elstvilcwuwj"]
 
-[ext_resource type="PackedScene" uid="uid://twat1jg8xf11" path="res://_debug/debug_level.tscn" id="1_5m8kc"]
 [ext_resource type="PackedScene" uid="uid://haumh5maop7u" path="res://player/player.tscn" id="2_cba4a"]
 [ext_resource type="AudioStream" uid="uid://di8u6kxpt8hbi" path="res://assets/music/Three Red Hearts - Pixel War 1.ogg" id="3_cba4a"]
+[ext_resource type="PackedScene" uid="uid://cp1dci2q0whfw" path="res://levels/map_01.tscn" id="3_w77bk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5m8kc"]
 sky_top_color = Color(0.33387092, 0.5957154, 0.8278338, 1)
@@ -27,8 +27,6 @@ environment = SubResource("Environment_w77bk")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="DebugLevel" parent="." instance=ExtResource("1_5m8kc")]
-
 [node name="Player" parent="." instance=ExtResource("2_cba4a")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -36,3 +34,6 @@ stream = ExtResource("3_cba4a")
 autoplay = true
 bus = &"Music"
 parameters/looping = true
+
+[node name="Map01" parent="." instance=ExtResource("3_w77bk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4415388, 0, 3.8983927)

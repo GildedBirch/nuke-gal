@@ -28,7 +28,9 @@ window/size/viewport_height=1080
 [file_customization]
 
 folder_colors={
-"res://assets/": "red"
+"res://assets/": "red",
+"res://components/": "gray",
+"res://meta/": "orange"
 }
 
 [input]
