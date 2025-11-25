@@ -41,6 +41,11 @@ func _ready() -> void:
 	_on_sensitivity_changed()
 
 
+func _input(event: InputEvent):
+	if (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED) and event is InputEventMouseButton:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventMouseMotion:
 		_handle_input(event)
@@ -89,8 +94,6 @@ func is_moving() -> bool:
 
 
 func _handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"debug_quit"):
-		get_tree().quit()
 	if event.is_action_pressed(&"spawn_bomb"):
 		_spawn_bomb()
 	if event.is_action_pressed(&"place_bomb"):
