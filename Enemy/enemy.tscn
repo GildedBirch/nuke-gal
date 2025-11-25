@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://byqowdphhhss4"]
+[gd_scene load_steps=8 format=3 uid="uid://byqowdphhhss4"]
 
 [ext_resource type="Script" uid="uid://bslcg1shmwo4f" path="res://Enemy/enemy.gd" id="1_2pb1h"]
 [ext_resource type="PackedScene" uid="uid://ddgu0orsatdl4" path="res://components/bomb_target_component.tscn" id="2_px1sc"]
@@ -17,9 +17,11 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_am0pq"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
+radius = 5.0
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_2pb1h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -27,14 +29,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_xjnqo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CapsuleMesh_px1sc")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true
 avoidance_enabled = true
 height = 1.5
-debug_enabled = true
 
 [node name="BombTargetComponent" parent="." instance=ExtResource("2_px1sc")]
 unique_name_in_owner = true
@@ -43,3 +44,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BombTargetComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15324652, 0)
 shape = SubResource("SphereShape3D_am0pq")
+
+[node name="PlayerDetector" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetector"]
+shape = SubResource("SphereShape3D_px1sc")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+autostart = true
+
+[node name="MeshPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6880325, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="MeshPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20440674)
+size = Vector3(0.24414063, 0.13842773, 0.71325684)

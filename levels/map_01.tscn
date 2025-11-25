@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp1dci2q0whfw"]
+[gd_scene load_steps=5 format=3 uid="uid://cp1dci2q0whfw"]
 
 [ext_resource type="PackedScene" uid="uid://pv3hhmfh24" path="res://assets/map/map01.blend" id="1_5gnpl"]
+[ext_resource type="PackedScene" uid="uid://bfxjwkryliq6p" path="res://assets/rock/rock.blend" id="2_tqk8j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gnpl"]
 transparency = 2
@@ -23,9 +24,38 @@ friction = 0.0
 surface_material_override/0 = SubResource("StandardMaterial3D_5gnpl")
 
 [node name="StaticBody3D" parent="Barrier" index="0"]
-collision_layer = 2
+collision_layer = 16
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_5gnpl")
 
 [node name="CollisionShape3D" parent="Barrier/StaticBody3D" index="0"]
 debug_color = Color(0.8348946, 0.5276098, 0, 0.41960785)
+
+[node name="Scenery" type="Node3D" parent="." index="2"]
+
+[node name="rock" parent="Scenery" index="0" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.449384, 4.7683716e-07, -5.242379)
+
+[node name="rock4" parent="Scenery" index="1" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.449384, 5.969234, -9.126646)
+
+[node name="rock5" parent="Scenery" index="2" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(1.925, 0, 0, 0, 1.925, 0, 0, 0, 1.925, -10.152198, 2.9123769, -26.042362)
+
+[node name="rock6" parent="Scenery" index="3" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(0.5695525, 0, -1.3443252, 0, 1.46, 0, 1.3443252, 0, 0.5695525, -5.2549677, 2.9123769, -39.074932)
+
+[node name="rock7" parent="Scenery" index="4" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(-0.8156107, 0, -0.75291383, 0, 1.11, 0, 0.75291383, 0, -0.8156107, -7.130605, 2.9123769, -38.335224)
+
+[node name="rock3" parent="Scenery" index="5" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(1.5521889, 0, -2.5496929, 0, 2.985, 0, 2.5496929, 0, 1.5521889, 0.40384698, -4.18041, 11.663857)
+
+[node name="rock2" parent="Scenery" index="6" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(1.8208528, 0, 0, 0, 1.8208528, 0, 0, 0, 1.8208528, 12.208162, 9.536743e-07, -1.1892948)
+
+[node name="rock8" parent="Scenery" index="7" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(-3.4202008, 0, 2.056771, 0, 3.991, 0, -2.056771, 0, -3.4202008, 23.645258, 9.536743e-07, -12.315329)
+
+[node name="rock9" parent="Scenery" index="8" instance=ExtResource("2_tqk8j")]
+transform = Transform3D(-1.3677375, 0, 0.82250226, 0, 1.596, 0, -0.82250226, 0, -1.3677375, 22.10911, 9.536743e-07, -8.596514)
