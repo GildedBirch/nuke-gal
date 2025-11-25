@@ -51,6 +51,7 @@ smooth_target = NodePath("../MeshPivot")
 smoothing = 10.0
 
 [node name="BombTargetComponent" parent="." instance=ExtResource("4_yw30f")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BombTargetComponent"]

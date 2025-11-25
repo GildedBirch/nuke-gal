@@ -29,6 +29,7 @@ var _machines_destroyed: int = 0
 @onready var camera_pivot: Node3D = %CameraPivot
 @onready var look_at_3d: LookAt3D = %LookAt3D
 @onready var bomb_marker: Marker3D = %BombMarker
+@onready var bomb_target_component: BombTargetComponent = %BombTargetComponent
 
 
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _ready() -> void:
 	GlobalSettings.sensitivity_changed.connect(_on_sensitivity_changed)
 	SignalBus.bomb.exploded.connect(_on_bomb_exploded)
 	SignalBus.machine.destroyed.connect(_on_machine_destroyed)
+	bomb_target_component.got_hit.connect(func(_d: int): get_tree().reload_current_scene())
 	_on_sensitivity_changed()
 
 

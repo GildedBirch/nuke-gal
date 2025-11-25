@@ -2,6 +2,7 @@ class_name Enemy
 extends CharacterBody3D
 
 
+const BULLET: PackedScene = preload("uid://c0idtrvvtj4cs")
 @export var stop_1: Marker3D
 @export var stop_2: Marker3D
 @export var speed: float = 3.0
@@ -12,6 +13,7 @@ var _is_stop_1: bool = true
 @onready var player_detector: Area3D = %PlayerDetector
 @onready var timer: Timer = %Timer
 @onready var mesh_pivot: Node3D = %MeshPivot
+@onready var bullet_spawn_point: Marker3D = %BulletSpawnPoint
 
 
 func _ready() -> void:
@@ -40,6 +42,9 @@ func update_target_location(target_location: Vector3) -> void:
 
 
 func _on_nav_velocity_computed(safe_velocity: Vector3):
+	if not is_navigating:
+		velocity = Vector3.ZERO
+		return
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
 
@@ -60,9 +65,14 @@ func _got_hit(_damage: int) -> void:
 
 func _on_timeout() -> void:
 	var players: Array[Node3D] = player_detector.get_overlapping_bodies()
-	for p in players:
-		print(p.name)
 	if not players:
 		return
-	#print("a")
+	is_navigating = false
+	velocity = Vector3.ZERO
 	mesh_pivot.look_at(players[0].global_position)
+	var bullet: Bullet = BULLET.instantiate()
+	get_tree().root.add_child(bullet)
+	bullet.global_position = bullet_spawn_point.global_position
+	bullet.global_basis = bullet_spawn_point.global_basis
+	await get_tree().create_timer(1).timeout
+	is_navigating = true

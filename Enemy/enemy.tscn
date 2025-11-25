@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://byqowdphhhss4"]
+[gd_scene load_steps=10 format=3 uid="uid://byqowdphhhss4"]
 
 [ext_resource type="Script" uid="uid://bslcg1shmwo4f" path="res://Enemy/enemy.gd" id="1_2pb1h"]
 [ext_resource type="PackedScene" uid="uid://ddgu0orsatdl4" path="res://components/bomb_target_component.tscn" id="2_px1sc"]
@@ -19,6 +19,20 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
 radius = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_px1sc"]
+albedo_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+metallic = 1.0
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_am0pq"]
+material = SubResource("StandardMaterial3D_px1sc")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 6
+rings = 1
+cap_bottom = false
 
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 0
@@ -63,6 +77,10 @@ autostart = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6880325, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="MeshPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20440674)
-size = Vector3(0.24414063, 0.13842773, 0.71325684)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.24581206)
+mesh = SubResource("CylinderMesh_am0pq")
+
+[node name="BulletSpawnPoint" type="Marker3D" parent="MeshPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.69490254)

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0idtrvvtj4cs"]
+
+[ext_resource type="Script" uid="uid://b7q7gbite7fs0" path="res://bullet/bullet.gd" id="1_k2aps"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8b02t"]
+radius = 0.125
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2aps"]
+albedo_color = Color(0.9999997, 0.22893667, 0.93158114, 1)
+metallic_specular = 0.0
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6wip1"]
+material = SubResource("StandardMaterial3D_k2aps")
+radius = 0.125
+height = 0.25
+
+[node name="Bullet" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_k2aps")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8b02t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6wip1")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+autostart = true

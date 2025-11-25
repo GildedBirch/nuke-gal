@@ -31,9 +31,15 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://Enemy/": "orange",
 "res://assets/": "red",
+"res://bomb/": "orange",
+"res://bullet/": "orange",
 "res://components/": "gray",
-"res://meta/": "orange"
+"res://levels/": "orange",
+"res://machine/": "orange",
+"res://meta/": "yellow",
+"res://player/": "orange"
 }
 
 [input]
