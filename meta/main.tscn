@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://elstvilcwuwj"]
+[gd_scene load_steps=16 format=3 uid="uid://elstvilcwuwj"]
 
 [ext_resource type="PackedScene" uid="uid://haumh5maop7u" path="res://player/player.tscn" id="2_cba4a"]
 [ext_resource type="AudioStream" uid="uid://di8u6kxpt8hbi" path="res://assets/music/Three Red Hearts - Pixel War 1.ogg" id="3_cba4a"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://byqowdphhhss4" path="res://Enemy/enemy.tscn" id="4_w77bk"]
 [ext_resource type="PackedScene" uid="uid://djjc462el1i0m" path="res://machine/machine.tscn" id="5_jio6s"]
 [ext_resource type="Texture2D" uid="uid://d0yeehbqrcj54" path="res://assets/textures/texture_16px 85.png" id="6_ob1o1"]
+[ext_resource type="Texture2D" uid="uid://c761bagkib8we" path="res://assets/icons/instructions.png" id="7_fetwq"]
 
 [sub_resource type="Environment" id="Environment_w77bk"]
 background_mode = 1
@@ -57,7 +58,7 @@ script/source = "extends Area3D
 
 
 func _ready() -> void:
-	body_entered.connect(func(body: Node3D):
+	body_entered.connect(func(_body: Node3D):
 		label.show()
 		timer.start()
 		await timer.timeout
@@ -72,6 +73,15 @@ size = Vector3(8.5078125, 2.5273438, 2.9018555)
 font_size = 48
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_aai5n"]
+script/source = "extends CanvasLayer
+
+
+func _ready() -> void:
+	await get_tree().create_timer(10).timeout
+	hide()
+"
 
 [node name="Main" type="Node"]
 
@@ -256,3 +266,18 @@ vertical_alignment = 1
 [node name="Timer" type="Timer" parent="Area3D"]
 wait_time = 5.0
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_aai5n")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 66.0
+offset_bottom = 60.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 66.0
+offset_bottom = 60.0
+texture = ExtResource("7_fetwq")
