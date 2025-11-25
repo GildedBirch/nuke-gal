@@ -1,2 +1,4 @@
 # nuke-gal
-Jam Game
+Jam Game  
+https://itch.io/jam/core-mechanics-challenge-2025-autumn  
+https://birch.itch.io/nukegal
